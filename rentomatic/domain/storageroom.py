@@ -12,6 +12,7 @@ class StorageRoom:
     @classmethod
     def from_dict(cls, dictionary):
         room = cls(**dictionary)
-    
+        return room
+
 
 DomainModel.register(StorageRoom)
