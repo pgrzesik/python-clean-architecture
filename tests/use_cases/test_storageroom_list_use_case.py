@@ -3,6 +3,7 @@ from unittest import mock
 import pytest
 
 from rentomatic.domain.storageroom import StorageRoom
+from rentomatic.use_cases.request_objects import StorageRoomListRequestObject
 from rentomatic.use_cases.storageroom_use_cases import StorageRoomListUseCase
 
 
@@ -34,7 +35,8 @@ def repo_mock(domain_storagerooms):
 
 def test_storageroom_list(domain_storagerooms, repo_mock):
     storageroom_list_use_case = StorageRoomListUseCase(repo_mock)
-    result = storageroom_list_use_case.execute()
+    req = StorageRoomListRequestObject.from_dict({})
+    res = storageroom_list_use_case.execute(req)
 
     repo_mock.list.assert_called_once_with()
-    assert result == domain_storagerooms
+    assert res.value == domain_storagerooms
