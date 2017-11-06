@@ -25,12 +25,16 @@ def domain_storagerooms():
     return [first_storageroom, second_storageroom]
 
 
-def test_storageroom_list(domain_storagerooms):
-    repo = mock.Mock()
-    repo.list.return_value = domain_storagerooms
+@pytest.fixture
+def repo_mock(domain_storagerooms):
+    m = mock.Mock()
+    m.list.return_value = domain_storagerooms
+    return m
 
-    storageroom_list_use_case = StorageRoomListUseCase(repo)
+
+def test_storageroom_list(domain_storagerooms, repo_mock):
+    storageroom_list_use_case = StorageRoomListUseCase(repo_mock)
     result = storageroom_list_use_case.execute()
 
-    repo.list.assert_called_once_with()
+    repo_mock.list.assert_called_once_with()
     assert result == domain_storagerooms
