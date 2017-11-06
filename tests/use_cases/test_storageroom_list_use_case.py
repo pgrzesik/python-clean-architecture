@@ -3,7 +3,7 @@ from unittest import mock
 import pytest
 
 from rentomatic.domain.storageroom import StorageRoom
-from rentomatic.use_cases import storageroom_use_cases as uc
+from rentomatic.use_cases.storageroom_use_cases import StorageRoomListUseCase
 
 
 @pytest.fixture
@@ -29,7 +29,7 @@ def test_storageroom_list(domain_storagerooms):
     repo = mock.Mock()
     repo.list.return_value = domain_storagerooms
 
-    storageroom_list_use_case = uc.StorageRoomListUseCase(repo)
+    storageroom_list_use_case = StorageRoomListUseCase(repo)
     result = storageroom_list_use_case.execute()
 
     repo.list.assert_called_once_with()
