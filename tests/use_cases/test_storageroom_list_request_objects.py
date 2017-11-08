@@ -38,3 +38,9 @@ class TestStorageRoomListRequestObject:
 
         assert req
         assert req.filters == {'a': 'b'}
+
+    def test_build_from_dict_with_invalid_filters(self):
+        req = StorageRoomListRequestObject.from_dict({'filters': 5})
+
+        assert req.has_errors()
+        assert req.errors[0]['parameter'] == 'filters'
