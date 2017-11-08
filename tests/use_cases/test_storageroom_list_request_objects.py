@@ -20,3 +20,9 @@ def test_build_storageroom_list_request_object_with_empty_filters():
 
     assert req
     assert req.filters == {}
+
+def test_build_storageroom_list_request_object_from_dict_with_empty_filters():
+    req = request_objects.StorageRoomListRequestObject.from_dict(filters={})
+
+    assert req
+    assert req.filters == {}
