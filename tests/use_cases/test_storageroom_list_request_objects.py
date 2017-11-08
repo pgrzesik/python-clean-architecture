@@ -25,3 +25,16 @@ class TestStorageRoomListRequestObject:
 
         assert req
         assert req.filters == {}
+
+    def test_build_with_filters(self):
+        req = StorageRoomListRequestObject(filters={'a': 'b'})
+
+        assert req
+        assert req.filters == {'a': 'b'}
+
+    def test_build_from_dict_with_filters(self):
+        req = StorageRoomListRequestObject.from_dict(
+            {'filters': {'a': 'b'}})
+
+        assert req
+        assert req.filters == {'a': 'b'}
