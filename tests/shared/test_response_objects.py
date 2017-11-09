@@ -48,6 +48,7 @@ class TestResponseFailure:
         req = InvalidRequestObject()
         req.add_error('path', 'Is mandatory')
         req.add_error('path', 'can\'t be blank')
+        return req
 
     def test_build_from_invalid_request_object(self, invalid_request_object):
         res = ResponseFailure.build_from_invalid_request_object(

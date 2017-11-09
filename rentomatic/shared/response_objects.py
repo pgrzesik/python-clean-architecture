@@ -18,3 +18,11 @@ class ResponseFailure:
             'type': self.type,
             'message': self.message
         }
+
+    @classmethod
+    def build_from_invalid_request_object(cls, invalid_request_object):
+        message = '\n'.join(
+            "{}: {}".format(err['parameter'], err['message'])
+            for err in invalid_request_object.errors)
+
+        return cls(cls.PARAMETERS_ERROR, message)
