@@ -31,3 +31,12 @@ def test_response_failure(response_type, response_message):
 
     assert res.type == response_type
     assert res.message == response_message
+
+
+def test_response_failure_contains_value(response_type, response_message):
+    res = ResponseFailure(response_type, response_message)
+
+    assert res.value == {
+        'type': response_type,
+        'message': response_message
+    }
