@@ -1,6 +1,7 @@
 import pytest
 
 from rentomatic.shared.response_objects import ResponseFailure, ResponseSuccess
+from rentomatic.use_cases.request_objects import InvalidRequestObject
 
 
 @pytest.fixture
@@ -41,3 +42,16 @@ class TestResponseFailure:
             'type': response_type,
             'message': response_message
         }
+
+    @pytest.fixture
+    def invalid_request_object(self):
+        req = InvalidRequestObject()
+        req.add_error('path', 'Is mandatory')
+        req.add_error('path', 'can\'t be blank')
+
+    def test_build_from_invalid_request_object(self, invalid_request_object):
+        res = ResponseFailure.build_from_invalid_request_object(
+            invalid_request_object)
+
+        assert res.type == ResponseFailure.PARAMETERS_ERROR
+        assert res.message == 'path: Is mandatory\npath: can\'t be blank'
