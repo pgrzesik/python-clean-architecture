@@ -26,3 +26,7 @@ class ResponseFailure:
             for err in invalid_request_object.errors)
 
         return cls(cls.PARAMETERS_ERROR, message)
+
+    @classmethod
+    def build_resource_error(cls, message):
+        return cls(cls.RESOURCE_ERROR, message)
