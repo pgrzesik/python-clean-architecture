@@ -30,3 +30,7 @@ class ResponseFailure:
     @classmethod
     def build_resource_error(cls, message):
         return cls(cls.RESOURCE_ERROR, message)
+
+    @classmethod
+    def build_parameters_error(cls, message):
+        return cls(cls.PARAMETERS_ERROR, message)
