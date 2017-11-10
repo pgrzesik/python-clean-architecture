@@ -34,3 +34,7 @@ class ResponseFailure:
     @classmethod
     def build_parameters_error(cls, message):
         return cls(cls.PARAMETERS_ERROR, message)
+
+    @classmethod
+    def build_system_error(cls, message):
+        return cls(cls.SYSTEM_ERROR, message)
