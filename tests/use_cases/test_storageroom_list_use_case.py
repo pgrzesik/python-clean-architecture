@@ -38,5 +38,5 @@ def test_storageroom_list(domain_storagerooms, repo_mock):
     req = StorageRoomListRequestObject.from_dict({})
     res = storageroom_list_use_case.execute(req)
 
-    repo_mock.list.assert_called_once_with()
+    repo_mock.list.assert_called_once_with(filters=None)
     assert res.value == domain_storagerooms

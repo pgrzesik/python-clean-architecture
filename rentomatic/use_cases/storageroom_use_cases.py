@@ -7,5 +7,5 @@ class StorageRoomListUseCase:
         self.repo = repo
 
     def execute(self, req):
-        storage_rooms = self.repo.list()
+        storage_rooms = self.repo.list(filters=req.filters)
         return ResponseSuccess(value=storage_rooms)
