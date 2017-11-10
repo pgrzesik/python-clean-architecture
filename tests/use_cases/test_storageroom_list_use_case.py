@@ -44,7 +44,8 @@ class TestStorageRoomListUseCase:
         repo_mock.list.assert_called_once_with(filters=None)
         assert res.value == domain_storagerooms
 
-    def test_use_case_with_filters(self, domain_storagerooms, repo_mock, use_case):
+    def test_use_case_with_filters(
+            self, domain_storagerooms, repo_mock, use_case):
         filters = {'a': 'b'}
         req = StorageRoomListRequestObject.from_dict({'filters': filters})
 
@@ -59,8 +60,8 @@ class TestStorageRoomListUseCase:
 
         res = use_case.execute(req)
 
-        repo_mock.list.assert_called_once_with(filters=bad_filters)
+        repo_mock.list.assert_not_called
         assert res.value == {
             'type': ResponseFailure.PARAMETERS_ERROR,
-            'value': 'filters: Is not a Mapping'
+            'message': 'filters: is not Mapping'
         }
