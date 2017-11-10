@@ -3,6 +3,7 @@ from unittest import mock
 import pytest
 
 from rentomatic.domain.storageroom import StorageRoom
+from rentomatic.shared.response_objects import ResponseFailure
 from rentomatic.use_cases.request_objects import StorageRoomListRequestObject
 from rentomatic.use_cases.storageroom_use_cases import StorageRoomListUseCase
 
@@ -43,7 +44,7 @@ class TestStorageRoomListUseCase:
         repo_mock.list.assert_called_once_with(filters=None)
         assert res.value == domain_storagerooms
 
-    def test_list_with_filters(self, domain_storagerooms, repo_mock, use_case):
+    def test_use_case_with_filters(self, domain_storagerooms, repo_mock, use_case):
         filters = {'a': 'b'}
         req = StorageRoomListRequestObject.from_dict({'filters': filters})
 
@@ -51,3 +52,15 @@ class TestStorageRoomListUseCase:
 
         repo_mock.list.assert_called_once_with(filters=filters)
         assert res.value == domain_storagerooms
+
+    def test_use_case_handles_bad_request(self, repo_mock, use_case):
+        bad_filters = [1, 2, 3]
+        req = StorageRoomListRequestObject.from_dict({'filters': bad_filters})
+
+        res = use_case.execute(req)
+
+        repo_mock.list.assert_called_once_with(filters=bad_filters)
+        assert res.value == {
+            'type': ResponseFailure.PARAMETERS_ERROR,
+            'value': 'filters: Is not a Mapping'
+        }
