@@ -7,7 +7,7 @@ from rentomatic.use_cases.request_objects import StorageRoomListRequestObject
 from rentomatic.use_cases.storageroom_use_cases import StorageRoomListUseCase
 
 
-class TestStorageRoom:
+class TestStorageRoomListUseCase:
     @pytest.fixture
     def domain_storagerooms(self):
         first_storageroom = StorageRoom(
@@ -32,20 +32,22 @@ class TestStorageRoom:
         m.list.return_value = domain_storagerooms
         return m
 
-    def test_list(self, domain_storagerooms, repo_mock):
-        storageroom_list_use_case = StorageRoomListUseCase(repo_mock)
+    @pytest.fixture
+    def use_case(self, repo_mock):
+        return StorageRoomListUseCase(repo_mock)
+
+    def test_use_case(self, domain_storagerooms, repo_mock, use_case):
         req = StorageRoomListRequestObject.from_dict({})
-        res = storageroom_list_use_case.execute(req)
+        res = use_case.execute(req)
 
         repo_mock.list.assert_called_once_with(filters=None)
         assert res.value == domain_storagerooms
 
-    def test_list_with_filters(self, domain_storagerooms, repo_mock):
-        storageroom_list_use_case = StorageRoomListUseCase(repo_mock)
+    def test_list_with_filters(self, domain_storagerooms, repo_mock, use_case):
         filters = {'a': 'b'}
         req = StorageRoomListRequestObject.from_dict({'filters': filters})
 
-        res = storageroom_list_use_case.execute(req)
+        res = use_case.execute(req)
 
         repo_mock.list.assert_called_once_with(filters=filters)
         assert res.value == domain_storagerooms
