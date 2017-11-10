@@ -18,7 +18,7 @@ def response_type():
 
 @pytest.fixture
 def response_message():
-    return 'This is a response error'
+    return 'This is an error'
 
 
 class TestResponseSuccess:
@@ -56,3 +56,9 @@ class TestResponseFailure:
 
         assert res.type == ResponseFailure.PARAMETERS_ERROR
         assert res.message == 'path: Is mandatory\npath: can\'t be blank'
+
+    def test_build_resource_error(self, response_message):
+        res = ResponseFailure.build_resource_error(response_message)
+
+        assert res.type == ResponseFailure.RESOURCE_ERROR
+        assert res.message == response_message
