@@ -25,7 +25,7 @@ class ResponseFailure:
             "{}: {}".format(err['parameter'], err['message'])
             for err in invalid_request_object.errors)
 
-        return cls(cls.PARAMETERS_ERROR, message)
+        return cls.build_parameters_error(message)
 
     @classmethod
     def build_resource_error(cls, message):
