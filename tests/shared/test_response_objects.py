@@ -62,3 +62,9 @@ class TestResponseFailure:
 
         assert res.type == ResponseFailure.RESOURCE_ERROR
         assert res.message == response_message
+
+    def test_build_parameters_error(self, response_message):
+        res = ResponseFailure.build_parameters_error(response_message)
+
+        assert res.type == ResponseFailure.PARAMETERS_ERROR
+        assert res.message == response_message
