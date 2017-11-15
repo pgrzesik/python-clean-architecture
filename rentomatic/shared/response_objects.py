@@ -14,7 +14,7 @@ class ResponseFailure:
 
     def _format_message(self, msg):
         if isinstance(msg, Exception):
-            return f'{msg.__class__.__name__}: {msg}'
+            return '{}: {}'.format(msg.__class__.__name__, msg)
         return msg
 
     @property

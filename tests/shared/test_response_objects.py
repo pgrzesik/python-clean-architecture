@@ -1,5 +1,4 @@
 import pytest
-
 from rentomatic.shared.response_objects import ResponseFailure, ResponseSuccess
 from rentomatic.use_cases.request_objects import InvalidRequestObject
 
@@ -42,6 +41,16 @@ class TestResponseFailure:
             'type': response_type,
             'message': response_message
         }
+
+    @pytest.fixture
+    def exception(self):
+        return Exception("Whoops!")
+
+    def test_from_exception(self, response_type, exception):
+        res = ResponseFailure(response_type, exception)
+
+        assert res.type == response_type
+        assert res.message == 'Exception: Whoops!'
 
     @pytest.fixture
     def invalid_request_object(self):
