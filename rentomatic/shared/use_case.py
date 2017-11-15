@@ -7,7 +7,11 @@ class UseCase(object):
         if not request_object:
             return ResponseFailure.build_from_invalid_request_object(
                 request_object)
-        return self.process_request(request_object)
+        try:
+            return self.process_request(request_object)
+        except Exception as exc:
+            return ResponseFailure.build_system_error(
+                '{}: {}'.format(exc.__class__.__name__, exc))
 
     def process_request(self, request_object):
         raise NotImplementedError(
