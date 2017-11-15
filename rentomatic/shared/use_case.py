@@ -3,12 +3,11 @@ from rentomatic.shared.response_objects import ResponseFailure
 
 class UseCase(object):
 
-    def execute(self, request_object):
-        if not request_object:
-            return ResponseFailure.build_from_invalid_request_object(
-                request_object)
+    def execute(self, req):
+        if not req.is_valid():
+            return ResponseFailure.build_from_invalid_request_object(req)
         try:
-            return self.process_request(request_object)
+            return self.process_request(req)
         except Exception as exc:
             return ResponseFailure.build_system_error(
                 '{}: {}'.format(exc.__class__.__name__, exc))
