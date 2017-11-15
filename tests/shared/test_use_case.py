@@ -1,14 +1,20 @@
 from unittest import mock
 
+import pytest
+
 from rentomatic.shared.response_objects import ResponseFailure
 from rentomatic.shared.use_case import UseCase
 
 
 class TestUseCase:
 
-    def test_cannot_process_valid_request(self):
-        valid_req = mock.Mock()
-        valid_req.is_valid.return_value = True
+    @pytest.fixture
+    def valid_req(self):
+        m = mock.Mock()
+        m.is_valid.return_value = True
+        return m
+
+    def test_cannot_process_valid_request(self, valid_req):
 
         use_case = UseCase()
 
