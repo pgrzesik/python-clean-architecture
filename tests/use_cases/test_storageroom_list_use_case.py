@@ -60,7 +60,7 @@ class TestStorageRoomListUseCase:
 
         res = use_case.execute(req)
 
-        repo_mock.list.assert_not_called
+        repo_mock.list.assert_not_called()
         assert res.value == {
             'type': ResponseFailure.PARAMETERS_ERROR,
             'message': 'filters: is not Mapping'
