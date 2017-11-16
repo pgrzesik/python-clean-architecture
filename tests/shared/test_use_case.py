@@ -38,3 +38,22 @@ class TestUseCase:
 
         assert res.type == ResponseFailure.PARAMETERS_ERROR
         assert res.message == 'param: msg'
+
+    @pytest.fixture
+    def use_case_process_request_exc(self):
+        use_case = UseCase()
+
+        class TestException(Exception):
+            pass
+
+        use_case.process_request = mock.Mock()
+        use_case.process_request.side_effect = TestException('msg')
+
+        return use_case
+
+    def test_can_handle_exc_from_process_request(
+            self, use_case_process_request_exc, valid_req):
+        res = use_case_process_request_exc.execute(valid_req)
+
+        assert res.type == ResponseFailure.SYSTEM_ERROR
+        assert res.message == 'TestException: msg'
