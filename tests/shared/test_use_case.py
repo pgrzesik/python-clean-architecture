@@ -2,6 +2,7 @@ from unittest import mock
 
 import pytest
 
+from rentomatic.shared.request_objects import InvalidRequestObject
 from rentomatic.shared.response_objects import ResponseFailure
 from rentomatic.shared.use_case import UseCase
 
@@ -24,3 +25,16 @@ class TestUseCase:
         assert res.type == ResponseFailure.SYSTEM_ERROR
         assert res.message == ('NotImplementedError: process_request()'
                                ' not implemented by UseCase class')
+
+    @pytest.fixture
+    def invalid_req(self):
+        req = InvalidRequestObject()
+        req.add_error('param', 'msg')
+
+    def def_can_process_invalid_request(self, invalid_req):
+        use_case = UseCase()
+
+        res = use_case.execute(invalid_req)
+
+        assert res.type == ResponseFailure.PARAMETERS_ERROR
+        assert res.message == 'param: msg'
