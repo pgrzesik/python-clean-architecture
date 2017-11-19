@@ -8,8 +8,8 @@ class UseCase(object):
         try:
             return self.process_request(req)
         except Exception as exc:
-            return ResponseFailure.build_system_error('{}: {}'.format(
-                exc.__class__.__name__, exc))
+            return ResponseFailure.build_system_error(
+                '{}: {}'.format(exc.__class__.__name__, exc))
 
     def process_request(self, request_object):
         raise NotImplementedError(
