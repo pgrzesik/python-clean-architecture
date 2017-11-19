@@ -19,16 +19,12 @@ class ResponseFailure:
 
     @property
     def value(self):
-        return {
-            'type': self.type,
-            'message': self.message
-        }
+        return {'type': self.type, 'message': self.message}
 
     @classmethod
     def build_from_invalid_request_object(cls, invalid_request_object):
-        message = '\n'.join(
-            "{}: {}".format(err['parameter'], err['message'])
-            for err in invalid_request_object.errors)
+        message = '\n'.join("{}: {}".format(err['parameter'], err['message'])
+                            for err in invalid_request_object.errors)
 
         return cls.build_parameters_error(message)
 

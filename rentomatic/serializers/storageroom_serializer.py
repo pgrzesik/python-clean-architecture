@@ -2,7 +2,6 @@ import json
 
 
 class StorageRoomEncoder(json.JSONEncoder):
-
     def default(self, o):
         try:
             to_serialize = {

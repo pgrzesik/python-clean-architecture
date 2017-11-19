@@ -3,7 +3,6 @@ from rentomatic.shared.use_case import UseCase
 
 
 class StorageRoomListUseCase(UseCase):
-
     def __init__(self, repo):
         self.repo = repo
 

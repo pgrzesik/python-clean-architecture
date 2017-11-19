@@ -5,7 +5,6 @@ from rentomatic.shared.request_objects import (
 
 
 class StorageRoomListRequestObject(ValidRequestObject):
-
     def __init__(self, filters=None):
         self.filters = filters
 

@@ -4,7 +4,6 @@ class BaseRequestObject:
 
 
 class InvalidRequestObject:
-
     def __init__(self):
         self.errors = []
 
@@ -19,7 +18,6 @@ class InvalidRequestObject:
 
 
 class ValidRequestObject:
-
     @classmethod
     def from_dict(cls, params):
         raise NotImplemented
