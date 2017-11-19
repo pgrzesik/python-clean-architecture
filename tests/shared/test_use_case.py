@@ -8,7 +8,6 @@ from rentomatic.shared.use_case import UseCase
 
 
 class TestUseCase:
-
     @pytest.fixture
     def valid_req(self):
         m = mock.Mock()
@@ -23,8 +22,9 @@ class TestUseCase:
 
         assert isinstance(res, ResponseFailure)
         assert res.type == ResponseFailure.SYSTEM_ERROR
-        assert res.message == ('NotImplementedError: process_request()'
-                               ' not implemented by UseCase class')
+        assert res.message == (
+            'NotImplementedError: process_request()'
+            ' not implemented by UseCase class')
 
     @pytest.fixture
     def invalid_req(self):

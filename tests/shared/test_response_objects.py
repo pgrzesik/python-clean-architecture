@@ -5,9 +5,7 @@ from rentomatic.use_cases.request_objects import InvalidRequestObject
 
 @pytest.fixture
 def response_value():
-    return {
-        'key': ['value', 'second_value']
-    }
+    return {'key': ['value', 'second_value']}
 
 
 @pytest.fixture
