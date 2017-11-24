@@ -49,3 +49,7 @@ class TestMemrepo:
     def test_list_with_unknown_filter_operator(self, repo):
         with pytest.raises(ValueError):
             repo.list(filters={'price__in': [20, 30]})
+
+    def test_list_with_price_filter(self, repo, second_storageroom):
+        self._assert_results(
+            repo.list(filters={'price': 59}), [second_storageroom])
