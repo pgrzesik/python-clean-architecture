@@ -28,7 +28,13 @@ class TestMemrepo:
     def storagerooms(first_storageroom, second_storageroom):
         return [first_storageroom, second_storageroom]
 
-    def test_list_without_parameters(self, storagerooms):
-        repo = MemRepo(storagerooms)
+    @pytest.fixture
+    def repo(self, storagerooms):
+        return MemRepo(storagerooms)
 
+    def test_list_without_parameters(self, repo, storagerooms):
         assert repo.list() == storagerooms
+
+    def test_list_with_unknown_filter_key(self, repo):
+        with pytest.raises(KeyError):
+            repo.list(filters={'name': 'value'})
