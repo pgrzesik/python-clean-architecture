@@ -38,3 +38,7 @@ class TestMemrepo:
     def test_list_with_unknown_filter_key(self, repo):
         with pytest.raises(KeyError):
             repo.list(filters={'name': 'value'})
+
+    def test_list_with_unknown_filter_operator(self, repo):
+        with pytest.raises(ValueError):
+            repo.list(filters={'price__in': [20, 30]})
