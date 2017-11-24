@@ -50,6 +50,9 @@ class TestMemrepo:
         with pytest.raises(ValueError):
             repo.list(filters={'price__in': [20, 30]})
 
-    def test_list_with_price_filter(self, repo, second_storageroom):
+    def test_list_with_price_filter(
+            self, repo, second_storageroom, first_storageroom):
         self._assert_results(
             repo.list(filters={'price': 59}), [second_storageroom])
+        self._assert_results(
+            repo.list(filters={'price__lt': 40}), [first_storageroom])
