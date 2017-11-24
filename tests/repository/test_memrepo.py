@@ -16,7 +16,7 @@ class TestMemrepo:
         }
 
     @pytest.fixture
-    def second_storageroom():
+    def second_storageroom(self):
         return {
             'code': '123456',
             'size': 400,
@@ -26,7 +26,7 @@ class TestMemrepo:
         }
 
     @pytest.fixture
-    def storagerooms(first_storageroom, second_storageroom):
+    def storagerooms(self, first_storageroom, second_storageroom):
         return [first_storageroom, second_storageroom]
 
     @pytest.fixture
